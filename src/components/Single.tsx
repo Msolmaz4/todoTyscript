@@ -20,13 +20,18 @@ const handleDone = (id:number)=>{
     setTodos(todos.map((item)=>item.id === id ?{...todo,isDone:!todo.isDone} : todo))
 
 }
+const handleDelete = (id:number)=>{
+    setTodos(todos.filter((item)=>item.id !== id))
 
+}
 
   return (
     <div>
         <form action="" className='todos_single'>
 
-            {todo.isDone ? (  <s className='todos_single--text'>
+            {todo.isDone ? ( 
+                // burda s ihtar etikedig bir sey olabilir arastir
+                <s className='todos_single--text'>
                 {todo.todo}
             </s>):(<span className='todos_single--text'>
                 {todo.todo}
@@ -34,8 +39,8 @@ const handleDone = (id:number)=>{
 
           
             <div>
-               <span className='icon'><CiEdit /></span> 
-               <span className='icon'><MdDelete /></span> 
+               <span className='icon' onClick={()=>handleEdit(todo.id)}><CiEdit /></span> 
+               <span className='icon' onClick={()=>handleDelete(todo.id)}><MdDelete /></span> 
                <span className='icon' onClick={()=>handleDone(todo.id)}><IoMdDoneAll /></span> 
             </div>
         </form>
