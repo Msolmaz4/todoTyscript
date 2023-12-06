@@ -41,7 +41,11 @@
     box-shadow: 0 0 5px black;
 }
 
-
+.todos__heading {
+  font-size: 30px;
+  /* text-align: center; */
+  color: white;
+}
 .container {
   width: 95%;
   display: flex;
@@ -58,7 +62,7 @@
     background-color: rgb(50, 195, 205);
   }
 .todos_single {
-    display: flex;
+  display: flex;
   border-radius: 5px;
   padding: 20px;
   margin-top: 15px;
@@ -80,6 +84,12 @@
     font-size: 25px;
     cursor: pointer;
   }
+
+
+  .remove {
+    background-color: rgb(235, 103, 80);
+  }
+  
   @media (max-width: 1100px) {
     .todos {
       width: 45%;
