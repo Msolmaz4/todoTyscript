@@ -4,14 +4,16 @@ import { MdDelete } from "react-icons/md";
 import { IoMdDoneAll } from "react-icons/io";
 import { Todo } from "./model";
 import "./styles.css";
+import { Draggable } from "react-beautiful-dnd";
 
 interface Props {
+  index: number;
   todo: Todo;
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Array<Todo>>>;
 }
 
-const Single = ({ todo, todos, setTodos }: Props) => {
+const Single = ({ index, todo, todos, setTodos }: Props) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [edittodo, setEditTodo] = useState<string>(todo.todo);
 
@@ -34,56 +36,61 @@ const Single = ({ todo, todos, setTodos }: Props) => {
   };
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(()=>{
-    inputRef.current?.focus()
-  },[edit])
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [edit]);
   return (
-    <div>
-      <form
-        action=""
-        className="todos_single"
-        onSubmit={(e) => handleEdit(e, todo.id)}
-      >
-        {edit ? (
-          <input
-          ref={inputRef}
-            value={edittodo}
-            onChange={(e) => setEditTodo(e.target.value)}
-          />
-        ) : todo.isDone ? (
-          // burda s ihtar etikedig bir sey olabilir arastir
-          <s className="todos_single--text">{todo.todo}</s>
-        ) : (
-          <span className="todos_single--text">{todo.todo}</span>
-        )}
+    <Draggable draggableId={todo.id.toString()} index={index}>
+      {(provided) => (
+        <form
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          action=""
+          className="todos_single"
+          onSubmit={(e) => handleEdit(e, todo.id)}
+        >
+          {edit ? (
+            <input
+              ref={inputRef}
+              value={edittodo}
+              onChange={(e) => setEditTodo(e.target.value)}
+            />
+          ) : todo.isDone ? (
+            // burda s ihtar etikedig bir sey olabilir arastir
+            <s className="todos_single--text">{todo.todo}</s>
+          ) : (
+            <span className="todos_single--text">{todo.todo}</span>
+          )}
 
-        {todo.isDone ? (
-          // burda s ihtar etikedig bir sey olabilir arastir
-          <s className="todos_single--text">{todo.todo}</s>
-        ) : (
-          <span className="todos_single--text">{todo.todo}</span>
-        )}
+          {todo.isDone ? (
+            // burda s ihtar etikedig bir sey olabilir arastir
+            <s className="todos_single--text">{todo.todo}</s>
+          ) : (
+            <span className="todos_single--text">{todo.todo}</span>
+          )}
 
-        <div>
-          <span
-            className="icon"
-            onClick={() => {
-              if (!edit && !todo.isDone) {
-                setEdit(!edit);
-              }
-            }}
-          >
-            <CiEdit />
-          </span>
-          <span className="icon" onClick={() => handleDelete(todo.id)}>
-            <MdDelete />
-          </span>
-          <span className="icon" onClick={() => handleDone(todo.id)}>
-            <IoMdDoneAll />
-          </span>
-        </div>
-      </form>
-    </div>
+          <div>
+            <span
+              className="icon"
+              onClick={() => {
+                if (!edit && !todo.isDone) {
+                  setEdit(!edit);
+                }
+              }}
+            >
+              <CiEdit />
+            </span>
+            <span className="icon" onClick={() => handleDelete(todo.id)}>
+              <MdDelete />
+            </span>
+            <span className="icon" onClick={() => handleDone(todo.id)}>
+              <IoMdDoneAll />
+            </span>
+          </div>
+        </form>
+      )}
+    </Draggable>
   );
 };
 
