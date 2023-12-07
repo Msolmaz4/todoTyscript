@@ -24,10 +24,10 @@ function App() {
   //console.log(todos);
 
   const onDragEnd = (result: DropResult) => {
-    console.log(result)
     const { destination, source } = result;
 
-    console.log( destination);
+    console.log(result);
+
     if (!destination) {
       return;
     }
@@ -43,7 +43,7 @@ function App() {
     let active = todos;
     let complete = CompletedTodos;
     // Source Logic
-    if (source.droppableId === "derlem") {
+    if (source.droppableId === "TodosLis") {
       add = active[source.index];
       active.splice(source.index, 1);
     } else {
@@ -52,7 +52,7 @@ function App() {
     }
 
     // Destination Logic
-    if (destination.droppableId === "derlem") {
+    if (destination.droppableId === "TodosLis") {
       active.splice(destination.index, 0, add);
     } else {
       complete.splice(destination.index, 0, add);
@@ -60,7 +60,8 @@ function App() {
 
     setCompletedTodos(complete);
     setTodos(active);
-   };
+  };
+
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
