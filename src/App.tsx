@@ -66,7 +66,7 @@ function App() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
-        <span className="heading"> TASKIFY</span>
+        <span className="heading"> TYSCRIPT TODO</span>
         <InputFeild todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
 
         <TodoList
