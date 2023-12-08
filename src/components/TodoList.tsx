@@ -18,7 +18,7 @@ const TodoList: React.FC<props> = ({
 }) => {
   return (
     <div className="container">
-      <Droppable droppableId="TodosLis">
+      <Droppable droppableId="Todos">
         {(provided, snapshot) => (
           <div
             className={`todos ${snapshot.isDraggingOver ? "dragactive" : ""}`}

@@ -43,7 +43,7 @@ function App() {
     let active = todos;
     let complete = CompletedTodos;
     // Source Logic
-    if (source.droppableId === "TodosLis") {
+    if (source.droppableId === "Todos") {
       add = active[source.index];
       active.splice(source.index, 1);
     } else {
@@ -52,7 +52,7 @@ function App() {
     }
 
     // Destination Logic
-    if (destination.droppableId === "TodosLis") {
+    if (destination.droppableId === "Todos") {
       active.splice(destination.index, 0, add);
     } else {
       complete.splice(destination.index, 0, add);
